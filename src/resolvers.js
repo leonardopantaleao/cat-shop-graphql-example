@@ -1,17 +1,7 @@
-const userProfile = require("../FirebaseFunctions/userProfile")
+const Query = require("./Query")
+const Mutation = require("./Mutation")
 
 const resolvers = {
-    Query: {
-      users: async () => {
-        const data = await fetch(`https://catgraphql-default-rtdb.firebaseio.com/users.json`);
-        const keys = Object.keys(dataJson);
-        const mapsKeys = keys.map(function(item) {
-          const userData = dataJson[item];
-          const graphqlUser = userProfile(userData);
-          return graphqlUser;
-        });
-        return mapsKeys;
-      }
-    }
+    Query
   };
 module.exports = resolvers;
