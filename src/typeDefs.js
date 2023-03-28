@@ -1,11 +1,6 @@
 const { gql } = require("apollo-server");
 
 const typeDefs = gql`
-    type User {
-        firstName: String
-        lastName: String
-        email: String
-    }
     type Cat {
         id: String
         catName: String
@@ -14,8 +9,8 @@ const typeDefs = gql`
         rating: Int
     }
     type Query {
-        users: [User]
         cats: [Cat]
+        cat(id: String!): Cat
     }
     type Mutation {
         addCat(

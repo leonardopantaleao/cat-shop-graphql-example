@@ -1,4 +1,6 @@
-const cat = require("../FirebaseFunctions/cat")
+const cat = require("../FirebaseFunctions/cat");
+const { ref, child, get } = require("firebase-admin");
+const database = require("./database");
 
 const Query = {
     cats: async () => {
@@ -11,6 +13,25 @@ const Query = {
         return graphqlCat;
       });
       return mapsKeys;
+    },
+    cat: async (parent, args, { cats }) => {
+      const catRef = database.ref().child("cats/" + args.id);
+      const fetchedCat = await catRef.once("value").then(function(snapshot) {
+        if (snapshot.exists()) {
+          let catData = {
+            catName: snapshot.child("catName").val(),
+            description: snapshot.child("description").val(),
+            imageURL: snapshot.child("imageURL").val(),
+            rating: snapshot.child("rating").val()
+          }
+          return catData;
+        } else {
+          console.log("No data available");
+        }
+      }).catch((error) => {
+        console.error(error);
+      });
+      return cat(fetchedCat);
     }
   }
 

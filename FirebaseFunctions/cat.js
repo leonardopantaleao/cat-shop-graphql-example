@@ -3,8 +3,7 @@ function cat(data) {
       catName: data.catName,
       description: data.description,
       imageURL: data.imageURL,
-      rating: data.rating,
-      id: data.id
+      rating: data.rating
     };
   }
   module.exports = cat;
