@@ -7,7 +7,6 @@ const typeDefs = gql`
         email: String
     }
     type Cat {
-        id: String
         catName: String
         description: String
         imageURL: String
@@ -16,6 +15,14 @@ const typeDefs = gql`
     type Query {
         users: [User]
         cats: [Cat]
+    }
+    type Mutation {
+        addCat(
+            catName: String
+            description: String
+            imageURL: String
+            rating: Int
+        ): Cat
     }
 `;
 
