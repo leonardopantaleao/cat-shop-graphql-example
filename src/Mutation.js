@@ -1,4 +1,3 @@
-const { v4 } = require("uuid");
 const admin = require("firebase-admin");
 const serviceAccount = require("../catgraphql-firebase-adminsdk-na5ci-35082c7aa7.json");
 const firebaseApp = admin.initializeApp({
@@ -8,30 +7,27 @@ const firebaseApp = admin.initializeApp({
 const database = admin.database(firebaseApp);
 
 const Mutation = {
-    addCat: (parent, { catName, description, imageURL, rating }, { cats }) => {
+    addCat: (parent, { id, catName, description, imageURL, rating }, { cats }) => {
         let newCat = {
+            id,
             catName,
             description,
             imageURL,
             rating,
         }
-        console.log(newCat);
-        const catRef = database.ref().child("cats/" + v4())
-        .set({
-            catName: newCat.catName,
-            description: newCat.description,
-            imageURL: newCat.imageURL,
-            rating: newCat.rating
-        })
+        database.ref().child("cats/" + id)
+            .set({
+                catName: newCat.catName,
+                description: newCat.description,
+                imageURL: newCat.imageURL,
+                rating: newCat.rating
+            })
         return newCat
     },
-    // removeCat: (parent, { id }, { cats }) => {
-    //     let index = cats.findIndex((cat) => {
-    //         return cat.id === id
-    //     })
-    //     cats.splice(index, 1)
-    //     return true
-    // },
+    removeCat: (parent, { id }, { cats }) => {
+        database.ref().child("cats/" + id).remove();
+        return true
+    },
     // findCat: (parent, { catName }, { cats }) => {
     //     return cats.find(cat => cat.catName === catName)
     // },

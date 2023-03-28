@@ -25,6 +25,9 @@ const typeDefs = gql`
             imageURL: String
             rating: Int
         ): Cat
+        removeCat(
+            id: String
+        ): Boolean
     }
 `;
 
