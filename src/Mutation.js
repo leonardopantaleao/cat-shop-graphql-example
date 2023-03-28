@@ -1,3 +1,12 @@
+const { v4 } = require("uuid");
+const admin = require("firebase-admin");
+const serviceAccount = require("../catgraphql-firebase-adminsdk-na5ci-35082c7aa7.json");
+const firebaseApp = admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: "https://catgraphql-default-rtdb.firebaseio.com"
+}, "catgraphql");
+const database = admin.database(firebaseApp);
+
 const Mutation = {
     addCat: (parent, { catName, description, imageURL, rating }, { cats }) => {
         let newCat = {
@@ -7,7 +16,13 @@ const Mutation = {
             rating,
         }
         console.log(newCat);
-        // cats.push(newCat)
+        const catRef = database.ref().child("cats/" + v4())
+        .set({
+            catName: newCat.catName,
+            description: newCat.description,
+            imageURL: newCat.imageURL,
+            rating: newCat.rating
+        })
         return newCat
     },
     // removeCat: (parent, { id }, { cats }) => {

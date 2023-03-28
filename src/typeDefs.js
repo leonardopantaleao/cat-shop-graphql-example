@@ -7,6 +7,7 @@ const typeDefs = gql`
         email: String
     }
     type Cat {
+        id: String
         catName: String
         description: String
         imageURL: String
@@ -18,6 +19,7 @@ const typeDefs = gql`
     }
     type Mutation {
         addCat(
+            id: String
             catName: String
             description: String
             imageURL: String
