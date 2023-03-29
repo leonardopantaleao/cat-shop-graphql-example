@@ -23,6 +23,13 @@ const typeDefs = gql`
         removeCat(
             id: String
         ): Boolean
+        updateCat(
+            id: String
+            catName: String
+            description: String
+            imageURL: String
+            rating: Int
+        ): Cat
     }
 `;
 

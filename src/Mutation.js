@@ -22,24 +22,23 @@ const Mutation = {
         database.ref().child("cats/" + id).remove();
         return true
     },
-    // findCat: (parent, { catName }, { cats }) => {
-    //     return cats.find(cat => cat.catName === catName)
-    // },
-    // updateCat: (parent, { catName, description, imageURL, rating }, { cats }) => {
-    //     let oldCat =  cats.find(cat => cat.catName === catName)
-    //     let newCat = {
-    //         id: oldCat.id,
-    //         description: oldCat.description !== description ? description : oldCat.description,
-    //         imageURL: oldCat.imageURL !== imageURL ? imageURL : oldCat.imageURL,
-    //         rating: oldCat.rating !== rating ? rating : oldCat.rating,
-    //     }
-    //     let index = cats.findIndex((cat) => {
-    //         return cat.id === id
-    //     })
-    //     cats.splice(index, 1)
-    //     cats.push(newCat)
-    //     return newCat
-    // },
+    updateCat: (parent, { id, catName, description, imageURL, rating }, { cats }) => {
+        let newCat = {
+            id,
+            catName,
+            description,
+            imageURL,
+            rating,
+        }
+        database.ref().child("cats/" + id)
+            .update({
+                catName: newCat.catName,
+                description: newCat.description,
+                imageURL: newCat.imageURL,
+                rating: newCat.rating
+            })
+        return newCat
+    }
 }
 
 module.exports = Mutation
