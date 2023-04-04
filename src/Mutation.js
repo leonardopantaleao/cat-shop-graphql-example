@@ -11,6 +11,7 @@ const Mutation = {
         }
         database.ref().child("cats/" + id)
             .set({
+                id: newCat.id,
                 catName: newCat.catName,
                 description: newCat.description,
                 imageURL: newCat.imageURL,
@@ -32,6 +33,7 @@ const Mutation = {
         }
         database.ref().child("cats/" + id)
             .update({
+                id: newCat.id,
                 catName: newCat.catName,
                 description: newCat.description,
                 imageURL: newCat.imageURL,

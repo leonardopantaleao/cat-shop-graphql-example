@@ -6,6 +6,10 @@ const Query = {
     cats: async () => {
       const data = await fetch(`https://catgraphql-default-rtdb.firebaseio.com/cats.json`);
       const dataJson = await data.json();
+      console.log(dataJson);
+      if (dataJson === null) {
+        return [];
+      }
       const keys = Object.keys(dataJson);
       const mapsKeys = keys.map(function(item) {
         const catData = dataJson[item];
@@ -19,6 +23,7 @@ const Query = {
       const fetchedCat = await catRef.once("value").then(function(snapshot) {
         if (snapshot.exists()) {
           let catData = {
+            id: snapshot.child("id").val(),
             catName: snapshot.child("catName").val(),
             description: snapshot.child("description").val(),
             imageURL: snapshot.child("imageURL").val(),
